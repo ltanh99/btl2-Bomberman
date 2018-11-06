@@ -208,7 +208,7 @@ public class Bomber extends Character {
         }
          if (e instanceof Enemy) {
             kill();
-            return false;
+            return true;
         }
         return true;
     }

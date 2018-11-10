@@ -31,7 +31,10 @@ public class FileLevelLoader extends LevelLoader {
      * cấu hình
      */
     private static char[][] _map;
-
+    public static char[][] getMap()
+            {
+                return _map;
+            }
     public FileLevelLoader(Board board, int level) throws LoadLevelException {
         super(board, level);
     }
@@ -149,10 +152,10 @@ public class FileLevelLoader extends LevelLoader {
         int pos = x + y * getWidth();
         switch (c) {
             case '#':
-                _board.addEntity(pos, new Grass(x, y, Sprite.wall));
+                _board.addEntity(pos,new LayeredEntity(x, y, new Grass(x, y, Sprite.wall)));
                 break;
             case '*':
-                _board.addEntity(pos, new Grass(x, y, Sprite.brick));
+                _board.addEntity(pos, new LayeredEntity(x, y,new Grass(x, y, Sprite.brick)));
                 break;
             case 'x':
                 _board.addEntity(pos, new LayeredEntity(x, y,

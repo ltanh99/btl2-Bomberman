@@ -1,10 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package uet.oop.bomberman.level;
 
+/**
+ *
+ * @author Admin
+ */
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 
 /**
- * Load và lưu trữ thông tin bản đồ các màn chơi
+ * Load v� l?u tr? th�ng tin b?n ?? c�c m�n ch?i
  */
 public abstract class LevelLoader {
 

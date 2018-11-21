@@ -6,7 +6,7 @@ import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.graphics.Screen;
-
+import uet.oop.bomberman.entities.character.Character;
 public class Flame extends Entity {
 
 	protected Board _board;
@@ -79,9 +79,25 @@ public class Flame extends Entity {
 	 * @return
 	 */
 	private int calculatePermitedDistance() {
-		
-
-		return 1;
+		int radius = 0;
+		int x = (int)_x;
+		int y = (int)_y;
+		while(radius < _radius) {
+			if(_direction == 0) y--;
+			if(_direction == 1) x++;
+			if(_direction == 2) y++;
+			if(_direction == 3) x--;
+			
+			Entity a = _board.getEntity(x, y, null);
+			
+			if(a instanceof Character) ++radius; //explosion has to be below the mob
+			
+			if(a.collide(this) == false) //cannot pass thru
+				break;
+			
+			++radius;
+		}
+		return radius;
 
 	}
 
@@ -109,14 +125,6 @@ public class Flame extends Entity {
 	@Override
 	public boolean collide(Entity e) {
 		// TODO: x? lý va ch?m v?i Bomber, Enemy. Chú ý ??i t??ng này có v? trí chính là v? trí c?a Bomb ?ã n?
-		if (e instanceof Bomber) {
-                ((Bomber)e).kill();
-                 return false;
-        }
-        if (e instanceof Enemy) {
-             ((Enemy)e).kill();
-            return false;
-        }
         return true;
 	}
 }

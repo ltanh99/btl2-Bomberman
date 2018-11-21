@@ -4,6 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Flame extends Entity {
@@ -16,10 +17,10 @@ public class Flame extends Entity {
 
 	/**
 	 *
-	 * @param x hoành độ bắt đầu của Flame
-	 * @param y tung độ bắt đầu của Flame
-	 * @param direction là hướng của Flame
-	 * @param radius độ dài cực đại của Flame
+	 * @param x ho�nh ?? b?t ??u c?a Flame
+	 * @param y tung ?? b?t ??u c?a Flame
+	 * @param direction l� h??ng c?a Flame
+	 * @param radius ?? d�i c?c ??i c?a Flame
 	 */
 	public Flame(int x, int y, int direction, int radius, Board board) {
 		xOrigin = x;
@@ -29,34 +30,63 @@ public class Flame extends Entity {
 		_direction = direction;
 		_radius = radius;
 		_board = board;
+                
 		createFlameSegments();
 	}
 
 	/**
-	 * Tạo các FlameSegment, mỗi segment ứng một đơn vị độ dài
+	 * T?o c�c FlameSegment, m?i segment ?ng m?t ??n v? ?? d�i
 	 */
 	private void createFlameSegments() {
 		/**
-		 * tính toán độ dài Flame, tương ứng với số lượng segment
+		 * t�nh to�n ?? d�i Flame, t??ng ?ng v?i s? l??ng segment
+                 * 
 		 */
-		_flameSegments = new FlameSegment[calculatePermitedDistance()];
+                _flameSegments = new FlameSegment[calculatePermitedDistance()];
+                
+		
 
 		/**
-		 * biến last dùng để đánh dấu cho segment cuối cùng
+		 * bi?n last d�ng ?? ?�nh d?u cho segment cu?i c�ng
 		 */
-		boolean last;
-
-		// TODO: tạo các segment dưới đây
+		boolean last = false;
+            int x = (int) _x;
+            int y = (int) _y;
+            for (int i = 0; i < _flameSegments.length; i++) {
+                last = i == _flameSegments.length - 1 ? true : false;
+                switch (_direction) {
+                    case 0:
+                        y--;
+                        break;
+                    case 1:
+                        x++;
+                        break;
+                    case 2 :
+                        y++;
+                        break;
+                    case 3:
+                        x--;
+                        break;
+                }
+            
+		// TODO: t?o c�c segment d??i ?�y
+                _flameSegments[i] = new FlameSegment(x, y, _direction, last, _board);
+                        }
 	}
 
 	/**
-	 * Tính toán độ dài của Flame, nếu gặp vật cản là Brick/Wall, độ dài sẽ bị cắt ngắn
+	 * T�nh to�n ?? d�i c?a Flame, n?u g?p v?t c?n l� Brick/Wall, ?? d�i s? b? c?t ng?n
 	 * @return
 	 */
 	private int calculatePermitedDistance() {
-		// TODO: thực hiện tính toán độ dài của Flame
+		
+
 		return 1;
+
 	}
+
+	
+	
 	
 	public FlameSegment flameSegmentAt(int x, int y) {
 		for (int i = 0; i < _flameSegments.length; i++) {
@@ -78,7 +108,7 @@ public class Flame extends Entity {
 
 	@Override
 	public boolean collide(Entity e) {
-		// TODO: xử lý va chạm với Bomber, Enemy. Chú ý đối tượng này có vị trí chính là vị trí của Bomb đã nổ
+		// TODO: x? l� va ch?m v?i Bomber, Enemy. Ch� � ??i t??ng n�y c� v? tr� ch�nh l� v? tr� c?a Bomb ?� n?
 		if (e instanceof Bomber) {
                 ((Bomber)e).kill();
                  return false;

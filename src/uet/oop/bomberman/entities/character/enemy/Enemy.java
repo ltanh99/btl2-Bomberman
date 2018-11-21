@@ -13,11 +13,12 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Enemy extends Character {
 
     protected int _points;
-
+    
     protected double _speed;
     protected AI _ai;
 
@@ -27,13 +28,18 @@ public abstract class Enemy extends Character {
 
     protected int _finalAnimation = 30;
     protected Sprite _deadSprite;
-
+    
+    public double tmpX ;
+    public double tmpY ;
+    public boolean checkMove;
+    public int count = 0;
+    public static boolean check = true;
     public Enemy(int x, int y, Board board, Sprite dead, double speed, int points) {
         super(x, y, board);
-
+        
         _points = points;
-        _speed = speed;
-
+        
+        _speed = (speed);
         MAX_STEPS = Game.TILES_SIZE / _speed;
         rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
         _steps = MAX_STEPS;
@@ -41,7 +47,6 @@ public abstract class Enemy extends Character {
         _timeAfter = 20;
         _deadSprite = dead;
     }
-
     @Override
     public void update() {
         animate();
@@ -91,9 +96,11 @@ public abstract class Enemy extends Character {
 			_steps -= 1 + rest;
 			move(xa * _speed, ya * _speed);
 			_moving = true;
+                        checkMove = true;
 		} else {
 			_steps = 0;
 			_moving = false;
+                        checkMove = false;
 		}
 		
     }
@@ -105,6 +112,20 @@ public abstract class Enemy extends Character {
         }
         _y += ya;
         _x += xa;
+        count++;
+        if(count == 4)
+        {
+            if(check)
+            {
+                check = false;
+                count = 0;
+            }
+            if(!check)
+            {
+                check = true;
+                count =0;
+            }
+        }
     }
 
     @Override
@@ -123,11 +144,12 @@ public abstract class Enemy extends Character {
 		int yy = Coordinates.pixelToTile(yr) +(int)y;
 		
 		Entity a = _board.getEntity(xx, yy, this); //entity of the position we want to go
-		
+		tmpX = xx;
+                tmpY = yy;
 		return a.collide(this);
         //return true;
     }
-
+    
     @Override
     public boolean collide(Entity e) {
         // TODO: xử lý va chạm với Flame
@@ -142,6 +164,7 @@ public abstract class Enemy extends Character {
              converse(e).kill();
             return false;
         }
+         
         return true;
         
     }

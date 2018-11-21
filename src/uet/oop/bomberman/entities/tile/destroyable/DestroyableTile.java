@@ -1,7 +1,10 @@
+
 package uet.oop.bomberman.entities.tile.destroyable;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.bomb.FlameSegment;
+import uet.oop.bomberman.entities.character.enemy.Kondoria;
 import uet.oop.bomberman.entities.tile.Tile;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -42,9 +45,8 @@ public class DestroyableTile extends Tile {
 
                 destroy();
 
-                return false;
         }
-		return false;
+              return false;
 	}
 	
 	public void addBelowSprite(Sprite sprite) {

@@ -13,7 +13,7 @@ public abstract class Character extends AnimatedEntitiy {
 	protected Board _board;
 	protected int _direction = -1;
 	protected boolean _alive = true;
-	protected boolean _moving = false;
+	public boolean _moving = false;
 	public int _timeAfter = 40;
 	
 	public Character(int x, int y, Board board) {
@@ -36,7 +36,7 @@ public abstract class Character extends AnimatedEntitiy {
 	protected abstract void move(double xa, double ya);
 
 	/**
-	 * Được gọi khi đối tượng bị tiêu diệt
+	 * �?ược g�?i khi đối tượng bị tiêu diệt
 	 */
 	public abstract void kill();
 

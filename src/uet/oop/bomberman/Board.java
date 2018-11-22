@@ -17,9 +17,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import uet.oop.bomberman.entities.tile.Tile;
 
 /**
- * Quản lý thao tác điều khiển, load level, render các màn hình của game
+ * Quản lý thao tác đi�?u khiển, load level, render các màn hình của game
  */
 public class Board implements IRender {
 	protected LevelLoader _levelLoader;
@@ -104,7 +105,16 @@ public class Board implements IRender {
 			endGame();
 		}
 	}
-	
+	public boolean isPowerupUsed(int x, int y, int level) {
+		Tile p;
+		for (int i = 0; i < Bomber._powerups.size(); i++) {
+			p = Bomber._powerups.get(i);
+			if(p.getX() == x && p.getY() == y )
+				return true;
+		}
+		
+		return false;
+	}
 	protected void detectEndGame() {
 		if(_time <= 0)
 			endGame();
@@ -206,7 +216,19 @@ public class Board implements IRender {
 		
 		return null;
 	}
-	
+	public Character getCharacterAt(double x, double y) {
+		Iterator<Character> itr = _characters.iterator();
+		
+		Character cur;
+		while(itr.hasNext()) {
+			cur = itr.next();
+			
+			if(cur.getXTile() == x && cur.getYTile() == y)
+				return cur;
+		}
+		
+		return null;
+	}
 	public FlameSegment getFlameSegmentAt(int x, int y) {
 		Iterator<Bomb> bs = _bombs.iterator();
 		Bomb b;
@@ -241,7 +263,7 @@ public class Board implements IRender {
 	public void addMessage(Message e) {
 		_messages.add(e);
 	}
-
+        
 	protected void renderCharacter(Screen screen) {
 		Iterator<Character> itr = _characters.iterator();
 		

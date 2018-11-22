@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Balloon;
@@ -18,11 +16,12 @@ import uet.oop.bomberman.entities.character.enemy.Doll;
 import uet.oop.bomberman.entities.character.enemy.Kondoria;
 import uet.oop.bomberman.entities.character.enemy.Minvo;
 import uet.oop.bomberman.entities.character.enemy.Oneal;
+import uet.oop.bomberman.entities.character.enemy.Ovape;
+import uet.oop.bomberman.entities.character.enemy.Pass;
+import uet.oop.bomberman.entities.character.enemy.Pontan1;
+import uet.oop.bomberman.entities.character.enemy.Pontan2;
 import uet.oop.bomberman.entities.tile.Grass;
-import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
-import uet.oop.bomberman.entities.tile.item.BombItem;
-import uet.oop.bomberman.entities.tile.item.FlameItem;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
@@ -36,10 +35,7 @@ public class FileLevelLoader extends LevelLoader {
      * cấu hình
      */
     private static char[][] _map;
-    public static char[][] getMap()
-            {
-                return _map;
-            }
+
     public FileLevelLoader(Board board, int level) throws LoadLevelException {
         super(board, level);
     }
@@ -137,11 +133,11 @@ public class FileLevelLoader extends LevelLoader {
     @Override
     public void createEntities() {
 //        
-            for (int x = 0; x < getHeight(); x++) {
-                for (int y = 0; y < getWidth(); y++) {
-                    addLevelEntity(_map[x][y], y, x);
-                }
+        for (int x = 0; x < getHeight(); x++) {
+            for (int y = 0; y < getWidth(); y++) {
+                addLevelEntity(_map[x][y], y, x);
             }
+        }
 //        for (int y = 0; y < getHeight(); y++) {
 //
 //            for (int x = 0; x < getWidth(); x++) {
@@ -157,17 +153,15 @@ public class FileLevelLoader extends LevelLoader {
         int pos = x + y * getWidth();
         switch (c) {
             case '#':
-               _board.addEntity(pos, new Wall(x, y, Sprite.wall));  
-				break;
+                _board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.wall)));
+                break;
             case '*':
-                _board.addEntity(pos, new LayeredEntity(x, y,
-                        new Grass(x, y, Sprite.grass),
-                        new Brick(x, y, Sprite.brick)));
+                _board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.brick)));
                 break;
             case 'x':
                 _board.addEntity(pos, new LayeredEntity(x, y,
                         new Grass(x, y, Sprite.portal),
-                        new Brick(x, y, Sprite.brick)
+                        new Grass(x, y, Sprite.brick)
                 ));
                 break;
             case 'p':
@@ -192,47 +186,54 @@ public class FileLevelLoader extends LevelLoader {
                 _board.addEntity(pos, new Grass(x, y, Sprite.grass));
                 break;
             case '5':
-                
+
                 _board.addCharacter(new Kondoria(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
                 _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                break;
+            case '6':
+
+                _board.addCharacter(new Ovape(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+                _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                break;
+            case '7':
+
+                _board.addCharacter(new Pontan1(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+                _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                break;
+            case '8':
+
+                _board.addCharacter(new Pontan2(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+                _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                break;
+            case '9':
+
+                _board.addCharacter(new Pass(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+                _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                break;
             case 'b':
-                
-                LayeredEntity layer =new LayeredEntity(x, y,
+                _board.addEntity(pos, new LayeredEntity(x, y,
                         new Grass(x, y, Sprite.grass),
+                        new SpeedItem(x, y, Sprite.powerup_bombs),
                         new Brick(x, y, Sprite.brick)
-                );
-                if(_board.isPowerupUsed(x, y, _level) == false) {
-				layer.addBeforeTop(new BombItem(x, y, Sprite.powerup_bombs));
-			}
-				
-		_board.addEntity(pos, layer);
+                ));
                 break;
             case 'f':
-                layer = new LayeredEntity(x, y,
+                _board.addEntity(pos,
+                        new LayeredEntity(x, y,
                                 new Grass(x, y, Sprite.grass),
-                                
+                                new SpeedItem(x, y, Sprite.powerup_flames),
                                 new Brick(x, y, Sprite.brick)
-                        );
-                if(_board.isPowerupUsed(x, y, _level) == false) {
-					layer.addBeforeTop(new SpeedItem(x, y, Sprite.powerup_flames));
-				}
-                _board.addEntity(pos,layer);
-                
+                        ));
+
                 break;
             case 's':
-                layer = new LayeredEntity(x, y,
+                _board.addEntity(pos,
+                        new LayeredEntity(x, y,
                                 new Grass(x, y, Sprite.grass),
-                                
+                                new SpeedItem(x, y, Sprite.powerup_speed),
                                 new Brick(x, y, Sprite.brick)
-                        );
-                if(_board.isPowerupUsed(x, y, _level) == false) {
-					layer.addBeforeTop(new FlameItem(x, y, Sprite.powerup_speed));
-				}
-                _board.addEntity(pos,layer);
+                        ));
                 break;
-            case ' ': 
-		_board.addEntity(pos, new Grass(x, y, Sprite.grass) );
-		break;
             default:
                 _board.addEntity(pos, new Grass(x, y, Sprite.grass));
                 break;

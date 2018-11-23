@@ -1,7 +1,10 @@
 package uet.oop.bomberman.entities.character.enemy.ai;
 
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.Tile;
+import uet.oop.bomberman.entities.tile.Wall;
 
 public class AIMedium extends AI {
 	Bomber _bomber;
@@ -34,7 +37,7 @@ public class AIMedium extends AI {
 			else
 				return calculateRowDirection();
 		}
-		
+                
 	}
 	
 	protected int calculateColDirection() {
@@ -53,4 +56,5 @@ public class AIMedium extends AI {
 			return 2;
 		return -1;
 	}
+        
 }

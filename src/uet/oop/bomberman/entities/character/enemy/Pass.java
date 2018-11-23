@@ -9,7 +9,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Pass extends Enemy {
 	
 	public Pass(int x, int y, Board board) {
-		super(x, y, board, Sprite.pass_dead, Game.getBomberSpeed(), 200);
+		super(x, y, board, Sprite.pass_dead, Game.getBomberSpeed(), 2000);
 		
 		_sprite = Sprite.pass_left1;
 		

@@ -21,6 +21,7 @@ public class Balloon extends Enemy {
 	protected void chooseSprite() {
 		switch(_direction) {
 			case 0:
+                            
 			case 1:
 					_sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60);
 				break;
@@ -30,4 +31,5 @@ public class Balloon extends Enemy {
 				break;
 		}
 	}
+        
 }

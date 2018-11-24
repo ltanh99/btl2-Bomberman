@@ -39,7 +39,7 @@ public class Board implements IRender {
 	
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
-	
+	int a;
         Sound_cdjv levelSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\background.wav");
         Sound_cdjv gameOverSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\GameOverArcade.wav");
         Sound_cdjv winSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\win.wav");
@@ -81,8 +81,9 @@ public class Board implements IRender {
 		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
 		
 		for (int y = y0; y < y1; y++) {
-			for (int x = x0; x < x1; x++) {
-				_entities[x + y * _levelLoader.getWidth()].render(screen);
+			for (int x = x0; x < x1+11; x++) {
+				_entities[(x + y * (_levelLoader.getWidth()-1))].render(screen);
+                                
 			}
 		}
 		

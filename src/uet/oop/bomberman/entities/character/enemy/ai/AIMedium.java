@@ -17,44 +17,21 @@ public class AIMedium extends AI {
         @Override
 	public int calculateDirection() {
 		
-		if(_bomber == null)
-			return random.nextInt(4);
 		
-		int vertical = random.nextInt(2);
-		
-		if(vertical == 1) {
-			int v = calculateRowDirection();
-			if(v != -1)
-				return v;
-			else
-				return calculateColDirection();
-			
-		} else {
-			int h = calculateColDirection();
-			
-			if(h != -1)
-				return h;
-			else
-				return calculateRowDirection();
-		}
-                
-	}
-	
-	protected int calculateColDirection() {
-		if(_bomber.getXTile() < _e.getXTile())
+		if((_bomber.getXTile() < _e.getXTile())&&(_bomber.getYTile() == _e.getYTile()))
 			return 3;
-		else if(_bomber.getXTile() > _e.getXTile())
+		else if((_bomber.getXTile() > _e.getXTile())&&( _bomber.getYTile() == _e.getYTile()))
 			return 1;
 		
-		return -1;
+                else return rd.nextInt(4);
 	}
 	
 	protected int calculateRowDirection() {
-		if(_bomber.getYTile() < _e.getYTile())
+		if((_bomber.getYTile() < _e.getYTile())&&(_bomber.getXTile() == _e.getXTile()))
 			return 0;
-		else if(_bomber.getYTile() > _e.getYTile())
+		else if((_bomber.getYTile() > _e.getYTile())&&(_bomber.getXTile()== _e.getXTile()))
 			return 2;
-		return -1;
+		else return rd.nextInt(4);
 	}
         
 }

@@ -16,6 +16,7 @@ public class FlameItem extends Item {
 		// TODO: xử lý Bomber ăn Item
                 if(e instanceof Bomber )
                 {
+                    
                     ((Bomber) e).addPowerup(this);
 			remove();
 			return true;
@@ -25,6 +26,6 @@ public class FlameItem extends Item {
         @Override
 	public void setValues() {
 		_active = true;
-		Game.addBombRate(1);
+		Game.addBombRadius(1);
 	}
 }

@@ -1,6 +1,7 @@
 
 package uet.oop.bomberman.entities.tile.destroyable;
 
+import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.bomb.FlameSegment;
@@ -18,7 +19,8 @@ public class DestroyableTile extends Tile {
 	protected boolean _destroyed = false;
 	protected int _timeToDisapear = 20;
 	protected Sprite _belowSprite = Sprite.grass;
-	
+	Sound_cdjv destroySound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\box_falls.wav");
+        
 	public DestroyableTile(int x, int y, Sprite sprite) {
 		super(x, y, sprite);
 	}
@@ -29,12 +31,16 @@ public class DestroyableTile extends Tile {
 			if(_animate < MAX_ANIMATE) _animate++; else _animate = 0;
 			if(_timeToDisapear > 0) 
 				_timeToDisapear--;
-			else
+                        else{
+                                
 				remove();
+                                destroySound.suspend();
+                        }   
 		}
 	}
 
 	public void destroy() {
+                destroySound.start();
 		_destroyed = true;
 	}
 	

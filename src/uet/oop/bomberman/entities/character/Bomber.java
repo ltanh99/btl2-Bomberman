@@ -11,6 +11,7 @@ import uet.oop.bomberman.input.Keyboard;
 
 import java.util.Iterator;
 import java.util.List;
+import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Grass;
@@ -24,7 +25,7 @@ public class Bomber extends Character {
 
     private List<Bomb> _bombs;
     protected Keyboard _input;
-
+    Sound_cdjv ItemSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\power03.wav");
     /**
      * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb
      * tiếp theo, cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ
@@ -56,7 +57,7 @@ public class Bomber extends Character {
         }
 
         animate();
-
+        ItemSound.suspend();
         calculateMove();
 
         detectPlaceBomb();
@@ -206,10 +207,10 @@ public class Bomber extends Character {
             _direction = 0;//up
         }
         if (canMove(0, ya)) {
-            _y += (int)ya;
+            _y += ya;
         }
         if (canMove(xa, 0)) {
-            _x += (int)xa;
+            _x += xa;
         }
     }
     @Override
@@ -217,8 +218,10 @@ public class Bomber extends Character {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
         if (e instanceof Flame) {
-
-            kill();
+            if (Game.bomberCollideFlame ) {
+                _alive = true;
+            }
+            else kill();
 
             return false;
         }
@@ -233,7 +236,7 @@ public class Bomber extends Character {
 		if(p.isRemoved()) return;
 		
 		_powerups.add(p);
-		
+		ItemSound.start();
 		p.setValues();
 	}
     public void clearUsedPowerups() {

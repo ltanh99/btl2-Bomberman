@@ -17,10 +17,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.tile.Tile;
 
 /**
  * Quản lý thao tác đi�?u khiển, load level, render các màn hình của game
+ * 
  */
 public class Board implements IRender {
 	protected LevelLoader _levelLoader;
@@ -38,6 +40,12 @@ public class Board implements IRender {
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	
+        Sound_cdjv levelSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\background.wav");
+        Sound_cdjv gameOverSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\GameOverArcade.wav");
+        Sound_cdjv winSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\win.wav");
+        
+        boolean check = true;
+        int count = 0 ;
 	public Board(Game game, Keyboard input, Screen screen) {
 		_game = game;
 		_input = input;
@@ -85,18 +93,23 @@ public class Board implements IRender {
 	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
+                
 	}
 	
 	public void loadLevel(int level) {
-		_time = Game.TIME;
+		//winSound.suspend();
+                _time = Game.TIME;
 		_screenToShow = 2;
 		_game.resetScreenDelay();
 		_game.pause();
 		_characters.clear();
 		_bombs.clear();
 		_messages.clear();
-		
-		try {
+		if(check){
+                levelSound.start();
+                check = false;
+                }
+                try {
 			_levelLoader = new FileLevelLoader(this, level);
 			_entities = new Entity[_levelLoader.getHeight() * _levelLoader.getWidth()];
 			
@@ -116,14 +129,18 @@ public class Board implements IRender {
 		return false;
 	}
 	protected void detectEndGame() {
-		if(_time <= 0)
+		if(_time <= 0){
+                        gameOverSound.start();
 			endGame();
+                }
 	}
 	
 	public void endGame() {
+                levelSound.suspend();
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+                gameOverSound.start();
 	}
 	
 	public boolean detectNoEnemies() {
@@ -132,7 +149,8 @@ public class Board implements IRender {
 			if(_characters.get(i) instanceof Bomber == false)
 				++total;
 		}
-		
+                count = total;
+		//if(count == 0) winSound.start();
 		return total == 0;
 	}
 	

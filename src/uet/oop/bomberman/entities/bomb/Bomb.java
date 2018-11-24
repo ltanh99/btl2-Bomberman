@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
+import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.AnimatedEntitiy;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
@@ -19,7 +20,8 @@ public class Bomb extends AnimatedEntitiy {
     protected Flame[] _flames = null;
     protected boolean _exploded = false;
     protected boolean _allowedToPassThru = true;
-
+    
+    Sound_cdjv explosionSound = new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\explosion.wav");
     public Bomb(int x, int y, Board board) {
         _x = x;
         _y = y;
@@ -34,15 +36,16 @@ public class Bomb extends AnimatedEntitiy {
         } else {
             if (!_exploded) {
                 explode();
-            } else {
-                
+            } else {                
                 updateFlames();
             }
 
             if (_timeAfter > 0) {
                 _timeAfter--;
             } else {
+                
                 remove();
+                explosionSound.suspend();
             }
         }
 
@@ -80,7 +83,8 @@ public class Bomb extends AnimatedEntitiy {
      * X? lý Bomb n?
      */
     protected void explode() {
-    _exploded = true;
+        boolean check = true;
+        _exploded = true;
 
         _allowedToPassThru = true;
 
@@ -89,18 +93,19 @@ public class Bomb extends AnimatedEntitiy {
         Character a = _board.getCharacterAt(_x, _y);
 
         if (a != null) {
-
-            a.kill();
+            
+            if (a instanceof Bomber && Game.bomberCollideFlame ) {}
+            else a.kill();
 
         }
-
+        
         _flames = new Flame[4];
         for (int i = 0; i < _flames.length; i++) {
 
             _flames[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius(), _board);
 
         }
-
+        explosionSound.start();                         
     }
     
     public FlameSegment flameAt(int x, int y) {
@@ -127,7 +132,6 @@ public class Bomb extends AnimatedEntitiy {
         // TODO: x? lý khi Bomber ?i ra sau khi v?a ??t bom (_allowedToPassThru)
         // TODO: x? lý va ch?m v?i Flame c?a Bomb khác
         if (e instanceof Flame) {
-
             _timeToExplode = 0;
             return true;
         }
@@ -148,4 +152,5 @@ public class Bomb extends AnimatedEntitiy {
         }
         return false;
     }
+    
 }

@@ -1,7 +1,9 @@
 package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.character.Character;
@@ -71,8 +73,16 @@ public class FlameSegment extends Entity {
     @Override
     public boolean collide(Entity e) {
         // TODO: x? lý khi FlameSegment va ch?m v?i Character
+        
+//        if (e instanceof Bomber && Game.bomberCollideFlame == true) {
+//            return true;
+//        }
+        
         if (e instanceof Character) {
-            ((Character) e).kill();
+            if (e instanceof Bomber && Game.bomberCollideFlame == true) {
+            return true;
+            }
+            else ((Character) e).kill();       
         }
         return true;
     }

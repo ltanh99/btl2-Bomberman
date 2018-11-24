@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
@@ -124,7 +125,9 @@ public class Flame extends Entity {
 
 	@Override
 	public boolean collide(Entity e) {
+               
 		// TODO: x? lý va ch?m v?i Bomber, Enemy. Chú ý ??i t??ng này có v? trí chính là v? trí c?a Bomb ?ã n?
-        return true;
+                
+                return true;
 	}
 }

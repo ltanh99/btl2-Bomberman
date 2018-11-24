@@ -1,8 +1,11 @@
+
 package uet.oop.bomberman.entities.character.enemy;
 
 
+import java.util.Random;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
+import uet.oop.bomberman.entities.character.enemy.ai.AIHigh;
 import uet.oop.bomberman.entities.character.enemy.ai.AIMedium;
 import uet.oop.bomberman.graphics.Sprite;
 

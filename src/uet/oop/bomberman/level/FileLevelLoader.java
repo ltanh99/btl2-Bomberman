@@ -28,7 +28,10 @@ import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.BombItem;
 import uet.oop.bomberman.entities.tile.item.FlameItem;
+import uet.oop.bomberman.entities.tile.item.FlamePassItem;
+import uet.oop.bomberman.entities.tile.item.RandomItem;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
+import uet.oop.bomberman.entities.tile.item.WallPassItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -235,7 +238,7 @@ public class FileLevelLoader extends LevelLoader {
                                 new Brick(x, y, Sprite.brick)
                         );
                 if(_board.isPowerupUsed(x, y, _level) == false) {
-					layer.addBeforeTop(new SpeedItem(x, y, Sprite.powerup_flames));
+					layer.addBeforeTop(new FlameItem(x, y, Sprite.powerup_flames));
 				}
                 _board.addEntity(pos,layer);
                 
@@ -247,14 +250,47 @@ public class FileLevelLoader extends LevelLoader {
                                 new Brick(x, y, Sprite.brick)
                         );
                 if(_board.isPowerupUsed(x, y, _level) == false) {
-					layer.addBeforeTop(new FlameItem(x, y, Sprite.powerup_speed));
+					layer.addBeforeTop(new SpeedItem(x, y, Sprite.powerup_speed));
 				}
                 _board.addEntity(pos,layer);
                 break;
+            case 'w':
+                layer = new LayeredEntity(x, y,
+                                new Grass(x, y, Sprite.grass),
+                                
+                                new Brick(x, y, Sprite.brick)
+                        );
+                if(_board.isPowerupUsed(x, y, _level) == false) {
+					layer.addBeforeTop(new WallPassItem(x, y, Sprite.powerup_wallpass));
+				}
+                _board.addEntity(pos,layer);
+                break;  
+            case 'j'://flame pass
+                layer = new LayeredEntity(x, y,
+                                new Grass(x, y, Sprite.grass),
+                                
+                                new Brick(x, y, Sprite.brick)
+                        );
+                if(_board.isPowerupUsed(x, y, _level) == false) {
+					layer.addBeforeTop(new FlamePassItem(x, y, Sprite.powerup_flamepass));
+				}
+                _board.addEntity(pos,layer);
+                break;
+             case 'r'://flame pass
+                layer = new LayeredEntity(x, y,
+                                new Grass(x, y, Sprite.grass),
+                                
+                                new Brick(x, y, Sprite.brick)
+                        );
+                if(_board.isPowerupUsed(x, y, _level) == false) {
+					layer.addBeforeTop(new RandomItem(x, y, Sprite.powerup_random));
+				}
+                _board.addEntity(pos,layer);
+                break;          
             case 'x':
                 _board.addEntity(pos, new LayeredEntity(x, y, 
 						new Grass(x ,y, Sprite.grass), 
-						new Portal(x ,y, Sprite.portal), 
+						new Portal(x ,y,_board, Sprite.portal), 
 						new Brick(x ,y, Sprite.brick)) );
 				break;
             case ' ': 

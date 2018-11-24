@@ -18,7 +18,7 @@ public class Sprite {
 	|--------------------------------------------------------------------------
 	 */
 	public static Sprite grass = new Sprite(16, 6, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite brick = new Sprite(16, 7, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite brick = new Sprite(16, 8, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite wall = new Sprite(16, 5, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite portal = new Sprite(16, 4, 0, SpriteSheet.tiles, 14, 14);
 	
@@ -222,7 +222,8 @@ public class Sprite {
 	public static Sprite powerup_detonator = new Sprite(16, 4, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_bombpass = new Sprite(16, 5, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_flamepass = new Sprite(16, 6, 10, SpriteSheet.tiles, 16, 16);
-	
+	public static Sprite powerup_random = new Sprite(16, 7, 10, SpriteSheet.tiles,16,16);
+        
 	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
 		SIZE = size;
 		_pixels = new int[SIZE * SIZE];

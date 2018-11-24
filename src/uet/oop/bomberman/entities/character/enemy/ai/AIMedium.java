@@ -23,7 +23,7 @@ public class AIMedium extends AI {
 		else if((_bomber.getXTile() > _e.getXTile())&&( _bomber.getYTile() == _e.getYTile()))
 			return 1;
 		
-                else return rd.nextInt(4);
+                else return random.nextInt(4);
 	}
 	
 	protected int calculateRowDirection() {
@@ -31,7 +31,7 @@ public class AIMedium extends AI {
 			return 0;
 		else if((_bomber.getYTile() > _e.getYTile())&&(_bomber.getXTile()== _e.getXTile()))
 			return 2;
-		else return rd.nextInt(4);
+		else return random.nextInt(4);
 	}
         
 }

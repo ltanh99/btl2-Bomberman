@@ -96,8 +96,16 @@ public class Bomb extends AnimatedEntitiy {
 
         if (a != null) {
             
-            if (a instanceof Bomber && Game.bomberCollideFlame ) {}
-            else a.kill();
+            if (a instanceof Bomber){
+                if(Game.bomberCollideFlame){}
+                else a.kill();
+            }
+            if (a instanceof Bomber2){
+                if(Game.bomberCollideFlame2){}
+                else a.kill();
+            }
+            if(!(a instanceof Bomber)&&!(a instanceof Bomber2)) a.kill();
+
 
         }
         

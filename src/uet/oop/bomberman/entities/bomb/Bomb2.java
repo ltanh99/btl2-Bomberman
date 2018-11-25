@@ -18,10 +18,11 @@ public class Bomb2 extends AnimatedEntitiy {
     public int _timeAfter = 20;
 
     protected Board _board;
-    protected Flame[] _flames2 = null;
-    protected boolean _exploded2 = false;
+    protected Flame[] _flames = null;
+    protected boolean _exploded = false;
     protected boolean _allowedToPassThru = true;
     protected boolean _allowedToPassThru2 = true;
+    
     
     Sound_cdjv explosionSound = new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\explosion.wav");
     public Bomb2(int x, int y, Board board) {
@@ -36,7 +37,7 @@ public class Bomb2 extends AnimatedEntitiy {
         if (_timeToExplode > 0) {
             _timeToExplode--;
         } else {
-            if (!_exploded2) {
+            if (!_exploded) {
                 explode();
             } else {                
                 updateFlames();
@@ -56,7 +57,7 @@ public class Bomb2 extends AnimatedEntitiy {
 
     @Override
     public void render(Screen screen) {
-        if (_exploded2) {
+        if (_exploded) {
             _sprite = Sprite.bomb_exploded2;
             renderFlames(screen);
         } else {
@@ -70,14 +71,14 @@ public class Bomb2 extends AnimatedEntitiy {
     }
 
     public void renderFlames(Screen screen) {
-        for (int i = 0; i < _flames2.length; i++) {
-            _flames2[i].render(screen);
+        for (int i = 0; i < _flames.length; i++) {
+            _flames[i].render(screen);
         }
     }
 
     public void updateFlames() {
-        for (int i = 0; i < _flames2.length; i++) {
-            _flames2[i].update();
+        for (int i = 0; i < _flames.length; i++) {
+            _flames[i].update();
         }
     }
 
@@ -86,25 +87,33 @@ public class Bomb2 extends AnimatedEntitiy {
      */
     protected void explode() {
         boolean check = true;
-        _exploded2 = true;
+        _exploded = true;
 
         _allowedToPassThru = true;
+        _allowedToPassThru2 = true;
 
         
 
         Character a = _board.getCharacterAt(_x, _y);
 
         if (a != null) {
+            if(!(a instanceof Bomber)&&!(a instanceof Bomber2)) a.kill();
+            if (a instanceof Bomber){
+                if(Game.bomberCollideFlame){}
+                else a.kill();
+            }
+            if (a instanceof Bomber2){
+                if(Game.bomberCollideFlame2){}
+                else a.kill();
+            }
             
-            if (a instanceof Bomber2 && Game.bomberCollideFlame2 ) {}
-            else a.kill();
 
         }
         
-        _flames2 = new Flame[4];
-        for (int i = 0; i < _flames2.length; i++) {
+        _flames = new Flame[4];
+        for (int i = 0; i < _flames.length; i++) {
 
-            _flames2[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius2(), _board);
+            _flames[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius2(), _board);
 
         }
         explosionSound.start();                         
@@ -112,15 +121,15 @@ public class Bomb2 extends AnimatedEntitiy {
     
     public FlameSegment flameAt(int x, int y) {
         
-        if (!_exploded2) {
+        if (!_exploded) {
             return null;
         }
         
-        for (int i = 0; i < _flames2.length; i++) {
-            if (_flames2[i] == null) {
+        for (int i = 0; i < _flames.length; i++) {
+            if (_flames[i] == null) {
                 return null;
             }
-            FlameSegment e = _flames2[i].flameSegmentAt(x, y);
+            FlameSegment e = _flames[i].flameSegmentAt(x, y);
             if (e != null) {
                 return e;
             }
@@ -136,8 +145,7 @@ public class Bomb2 extends AnimatedEntitiy {
         if (e instanceof Flame) {
             _timeToExplode = 0;
             return true;
-        }
-        if (e instanceof Bomber) {
+        }if (e instanceof Bomber) {
            
             double diffX = e.getX() - Coordinates.tileToPixel(getX());
 
@@ -151,7 +159,8 @@ public class Bomb2 extends AnimatedEntitiy {
 
             return _allowedToPassThru;
 
-        }if (e instanceof Bomber2) {
+        }
+        if (e instanceof Bomber2) {
            
             double diffX = e.getX() - Coordinates.tileToPixel(getX());
 
@@ -166,6 +175,7 @@ public class Bomb2 extends AnimatedEntitiy {
             return _allowedToPassThru2;
 
         }
+        
         return false;
     }
     

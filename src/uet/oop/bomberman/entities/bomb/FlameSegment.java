@@ -4,6 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.character.Character;
@@ -80,6 +81,9 @@ public class FlameSegment extends Entity {
         
         if (e instanceof Character) {
             if (e instanceof Bomber && Game.bomberCollideFlame == true) {
+            return true;
+            }
+            if (e instanceof Bomber2&& Game.bomberCollideFlame2 == true) {
             return true;
             }
             else ((Character) e).kill();       

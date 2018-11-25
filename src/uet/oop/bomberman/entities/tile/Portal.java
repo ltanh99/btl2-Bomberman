@@ -4,6 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -28,12 +29,22 @@ public class Portal extends Tile {
 			
 			return true;
 		}
+                if(e instanceof Bomber2 ) {
+			
+			
+			if(e.getXTile() == getX() && e.getYTile() == getY()) {
+				if(_board.detectNoEnemies())
+					_board.nextLevel();
+			}
+			
+			return true;
+		}
 		if(e instanceof Flame)
                 {
                     return true;
                 }
                 
-		return false;
+		return true;
 	}
 
 }

@@ -6,6 +6,7 @@ import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.AnimatedEntitiy;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -20,6 +21,7 @@ public class Bomb extends AnimatedEntitiy {
     protected Flame[] _flames = null;
     protected boolean _exploded = false;
     protected boolean _allowedToPassThru = true;
+    protected boolean _allowedToPassThru2 = true;
     
     Sound_cdjv explosionSound = new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\explosion.wav");
     public Bomb(int x, int y, Board board) {
@@ -148,6 +150,21 @@ public class Bomb extends AnimatedEntitiy {
             }
 
             return _allowedToPassThru;
+
+        }
+        if (e instanceof Bomber2) {
+           
+            double diffX = e.getX() - Coordinates.tileToPixel(getX());
+
+            double diffY = e.getY() - Coordinates.tileToPixel(getY());
+
+            if (!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) { // differences to see if the player has moved out of the bomb, tested values
+                
+                _allowedToPassThru2 = false;
+
+            }
+
+            return _allowedToPassThru2;
 
         }
         return false;

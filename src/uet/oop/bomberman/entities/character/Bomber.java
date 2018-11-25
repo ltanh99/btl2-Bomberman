@@ -13,19 +13,22 @@ import java.util.Iterator;
 import java.util.List;
 import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
 import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Tile;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.Item;
+import uet.oop.bomberman.input.Keyboard2;
 import uet.oop.bomberman.level.Coordinates;
 
 public class Bomber extends Character {
 
     private List<Bomb> _bombs;
-    protected Keyboard _input;
-    Sound_cdjv ItemSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\power03.wav");
+  protected Keyboard _input;
+  
+    //Sound_cdjv ItemSound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\power03.wav");
     /**
      * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb
      * tiếp theo, cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ
@@ -57,7 +60,7 @@ public class Bomber extends Character {
         }
 
         animate();
-        ItemSound.suspend();
+        //ItemSound.suspend();
         calculateMove();
 
         detectPlaceBomb();
@@ -135,7 +138,7 @@ public class Bomber extends Character {
         if (_timeAfter > 0) {
             --_timeAfter;
         } else {
-            _board.endGame();
+            remove();
         }
     }
 
@@ -236,7 +239,7 @@ public class Bomber extends Character {
 		if(p.isRemoved()) return;
 		
 		_powerups.add(p);
-		ItemSound.start();
+		//ItemSound.start();
 		p.setValues();
 	}
     public void clearUsedPowerups() {

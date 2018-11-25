@@ -29,9 +29,9 @@ public class Bomber2 extends Character {
   
     //Sound_cdjv ItemSound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\power03.wav");
     /**
-     * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb
-     * tiếp theo, cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ
-     * được reset v�? 0 và giảm dần trong mỗi lần update()
+     * nếu giá trị n� y < 0 thì cho phép đặt đối tượng Bomb
+     * tiếp theo, cứ mỗi lần đặt 1 Bomb mới, giá trị n� y sẽ
+     * được reset v�? 0 v�  giảm dần trong mỗi lần update()
      */
     protected int _timeBetweenPutBombs2 = 0;
     
@@ -41,7 +41,7 @@ public class Bomber2 extends Character {
         super(x, y, board);
         _bombs2 = _board.getBombs2();
         _input2 = _board.getInput2();
-        _sprite = Sprite.player_right;
+        _sprite = Sprite.player2_right;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Bomber2 extends Character {
         if (_alive) {
             chooseSprite();
         } else {
-            _sprite = Sprite.player_dead1;
+            _sprite = Sprite.player2_dead1;
         }
 
         screen.renderEntity((int) _x, (int) _y - _sprite.SIZE, this);
@@ -143,7 +143,7 @@ public class Bomber2 extends Character {
 
     @Override
     protected void calculateMove() {
-        // TODO: xử lý nhận tín hiệu đi�?u khiển hướng đi từ _input và g�?i move() để thực hiện di chuyển
+        // TODO: xử lý nhận tín hiệu đi�?u khiển hướng đi từ _input v�  g�?i move() để thực hiện di chuyển
         // TODO: nhớ cập nhật lại giá trị c�? _moving khi thay đổi trạng thái di chuyển
         int xa = 0, ya = 0;
         if (_input2.up) {
@@ -176,7 +176,7 @@ public class Bomber2 extends Character {
 
     @Override
     public boolean canMove(double x, double y) {
-        // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
+        // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến v�  có thể di chuyển tới đó hay không
         for (int i = 0; i < 4; i++) { //colision detection for each corner of the player
 
             double xt = ((_x + x) + i % 2 * 11) / Game.TILES_SIZE; //divide with tiles size to pass to tile coordinate
@@ -194,7 +194,7 @@ public class Bomber2 extends Character {
 
     @Override
     public void move(double xa, double ya) {
-        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi t�?a độ _x, _y
+        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không v�  thực hiện thay đổi t�?a độ _x, _y
         // TODO: nhớ cập nhật giá trị _direction sau khi di chuyển
         if (xa > 0) {
             _direction = 1;//right
@@ -257,33 +257,33 @@ public class Bomber2 extends Character {
     private void chooseSprite() {
         switch (_direction) {
             case 0:
-                _sprite = Sprite.player_up;
+                _sprite = Sprite.player2_up;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player2_up_1, Sprite.player2_up_2, _animate, 20);
                 }
                 break;
             case 1:
-                _sprite = Sprite.player_right;
+                _sprite = Sprite.player2_right;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player2_right_1, Sprite.player2_right_2, _animate, 20);
                 }
                 break;
             case 2:
-                _sprite = Sprite.player_down;
+                _sprite = Sprite.player2_down;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player2_down_1, Sprite.player2_down_2, _animate, 20);
                 }
                 break;
             case 3:
-                _sprite = Sprite.player_left;
+                _sprite = Sprite.player2_left;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player2_left_1, Sprite.player2_left_2, _animate, 20);
                 }
                 break;
             default:
-                _sprite = Sprite.player_right;
+                _sprite = Sprite.player2_right;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player2_right_1, Sprite.player2_right_2, _animate, 20);
                 }
                 break;
         }

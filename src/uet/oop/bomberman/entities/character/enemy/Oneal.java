@@ -6,6 +6,7 @@ import java.util.Random;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.character.enemy.ai.AIHigh;
+import uet.oop.bomberman.entities.character.enemy.ai.AILow;
 import uet.oop.bomberman.entities.character.enemy.ai.AIMedium;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -16,7 +17,7 @@ public class Oneal extends Enemy {
 		
 		_sprite = Sprite.oneal_left1;
 		
-		_ai = new AIMedium(_board.getBomber(), this);
+		_ai = new AILow();
 		_direction  = _ai.calculateDirection();
 	}
 	

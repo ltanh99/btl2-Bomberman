@@ -2,16 +2,19 @@ package uet.oop.bomberman.entities.character.enemy.ai;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Tile;
 import uet.oop.bomberman.entities.tile.Wall;
 
 public class AIMedium extends AI {
 	Bomber _bomber;
+        Bomber2 _bomber2;
 	Enemy _e;
 	
 	public AIMedium(Bomber bomber, Enemy e) {
 		_bomber = bomber;
+                
 		_e = e;
 	}
         @Override

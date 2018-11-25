@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.Character;
+import uet.oop.bomberman.entities.character.enemy.Ovape;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
@@ -24,7 +25,7 @@ public class Bomb2 extends AnimatedEntitiy {
     protected boolean _allowedToPassThru2 = true;
     
     
-    Sound_cdjv explosionSound = new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\explosion.wav");
+    Sound_cdjv explosionSound = new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\explosion.wav");
     public Bomb2(int x, int y, Board board) {
         _x = x;
         _y = y;
@@ -175,7 +176,7 @@ public class Bomb2 extends AnimatedEntitiy {
             return _allowedToPassThru2;
 
         }
-        
+        if(e instanceof Ovape) return true;
         return false;
     }
     

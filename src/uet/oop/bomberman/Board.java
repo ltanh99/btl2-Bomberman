@@ -46,9 +46,9 @@ public class Board implements IRender {
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	
-        Sound_cdjv levelSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\background.wav");
-        Sound_cdjv gameOverSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\GameOverArcade.wav");
-        Sound_cdjv winSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\win.wav");
+        Sound_cdjv levelSound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\background.wav");
+        Sound_cdjv gameOverSound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\GameOverArcade.wav");
+        Sound_cdjv winSound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\win.wav");
         
         boolean check = true;
         int count = 0 ;
@@ -58,7 +58,7 @@ public class Board implements IRender {
                 _input2 = input2;
 		_screen = screen;
 		
-		loadLevel(1); //start in level 1
+		loadLevel(5); //start in level 1
 	}
 	
 	@Override
@@ -106,8 +106,8 @@ public class Board implements IRender {
 	}
 	
 	public void loadLevel(int level) {
-		//winSound.suspend();
-                _time = Game.TIME;
+		winSound.suspend();
+                _time = Game.TIME*level;
 		_screenToShow = 2;
 		_game.resetScreenDelay();
 		_game.pause();
@@ -141,7 +141,7 @@ public class Board implements IRender {
 	}
 	protected void detectEndGame() {
 		if(_time <= 0){
-                        gameOverSound.start();
+                        
 			endGame();
                 }if(detectNoBomber()) endGame();
 	}
@@ -161,7 +161,7 @@ public class Board implements IRender {
 				++total;
 		}
                 count = total;
-		//if(count == 0) winSound.start();
+		if(count == 0) winSound.start();
 		return total == 0;
 	}public boolean detectNoBomber() {
 		int total = 0;
@@ -169,8 +169,7 @@ public class Board implements IRender {
 			if(_characters.get(i) instanceof Enemy == false)
 				++total;
 		}
-                count = total;
-		//if(count == 0) winSound.start();
+                
 		return total == 0;
 	}
 	
@@ -248,18 +247,7 @@ public class Board implements IRender {
 		}
 		
 		return null;
-	}public Bomber2 getBomber2() {
-		Iterator<Character> itr = _characters.iterator();
-		
-		Character cur;
-		while(itr.hasNext()) {
-			cur = itr.next();
-			
-			if(cur instanceof Bomber)
-				return (Bomber2) cur;
-		}
-		
-		return null;
+	
 	}
 	
 	public Character getCharacterAtExcluding(int x, int y, Character a) {

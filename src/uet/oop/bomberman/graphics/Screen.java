@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 
 import java.awt.*;
+import uet.oop.bomberman.entities.character.Bomber2;
 
 /**
  * Xử lý render cho tất cả Entity và một số màn hình phụ ra Game Panel
@@ -74,12 +75,26 @@ public class Screen {
 		int temp = xOffset;
 		
 		double BomberX = bomber.getX() / 16;
-		double complement = 0.5;
+		double complement = 1000;
 		int firstBreakpoint = board.getWidth() / 4;
 		int lastBreakpoint = board.getWidth() - firstBreakpoint;
 		
 		if( BomberX > firstBreakpoint + complement && BomberX < lastBreakpoint - complement) {
 			temp = (int)bomber.getX()  - (Game.WIDTH / 2);
+		}
+		
+		return temp;
+	}public static int calculateXOffset2(Board board, Bomber2 bomber2) {
+		if(bomber2 == null) return 0;
+		int temp = xOffset;
+		
+		double BomberX = bomber2.getX() / 16;
+		double complement = 1000;
+		int firstBreakpoint = board.getWidth() / 4;
+		int lastBreakpoint = board.getWidth() - firstBreakpoint;
+		
+		if( BomberX > firstBreakpoint + complement && BomberX < lastBreakpoint - complement) {
+			temp = (int)bomber2.getX()  - (Game.WIDTH / 2);
 		}
 		
 		return temp;

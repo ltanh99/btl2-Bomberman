@@ -220,7 +220,7 @@ public class Bomber2 extends Character {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
         if (e instanceof Flame) {
-            if (Game.bomberCollideFlame ) {
+            if (Game.bomberCollideFlame2 ) {
                 _alive = true;
             }
             else kill();

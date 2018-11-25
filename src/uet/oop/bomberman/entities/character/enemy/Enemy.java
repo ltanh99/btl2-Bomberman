@@ -14,6 +14,7 @@ import uet.oop.bomberman.level.Coordinates;
 
 import java.awt.*;
 import java.util.Random;
+import uet.oop.bomberman.entities.character.Bomber2;
 
 public abstract class Enemy extends Character {
 
@@ -161,6 +162,10 @@ public abstract class Enemy extends Character {
             return false;
         }
          if (e instanceof Bomber) {
+             converse(e).kill();
+            return false;
+        }
+         if (e instanceof Bomber2) {
              converse(e).kill();
             return false;
         }

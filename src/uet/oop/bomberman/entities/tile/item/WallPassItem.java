@@ -8,6 +8,7 @@ package uet.oop.bomberman.entities.tile.item;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.graphics.Sprite;
 
 /**
@@ -28,12 +29,25 @@ public class WallPassItem extends Item{
 			remove();
 			return true;
                 }
-		return false;
+		
+                if(e instanceof Bomber2 )
+                {
+                    ((Bomber2) e).addPowerup(this);
+			remove();
+			return true;
+                }
+		return true;
 	}
         @Override
 	public void setValues() {
 		_active = true;
 		Game.bomberCollideBrick = true;
+                
+	}
+    @Override
+        public void setValues2() {
+		_active = true;
+		Game.bomberCollideBrick2 = true;
                 
 	}
 }

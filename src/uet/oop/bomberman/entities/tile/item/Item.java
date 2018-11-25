@@ -12,6 +12,7 @@ public abstract class Item extends Tile {
 		super(x, y, sprite);
 	}
         public abstract void setValues();
+        public abstract void setValues2();
 	
 	public void removeLive() {
 		if(_duration > 0)

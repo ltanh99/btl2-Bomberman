@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Kondoria;
+import uet.oop.bomberman.entities.character.enemy.Ovape;
 
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
@@ -42,6 +43,8 @@ public class Brick extends DestroyableTile {
 			destroy();
 		
 		if(e instanceof Kondoria)
+			return true;
+                if(e instanceof Ovape)
 			return true;
 		if(e instanceof Bomber && Game.bomberCollideBrick == true)
                         return true;

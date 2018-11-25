@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import uet.oop.bomberman.Sound_cdjv.Sound_cdjv;
+import uet.oop.bomberman.entities.bomb.Bomb2;
+import uet.oop.bomberman.entities.character.Bomber2;
+import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Tile;
+import uet.oop.bomberman.input.Keyboard2;
 
 /**
  * Quản lý thao tác đi�?u khiển, load level, render các màn hình của game
@@ -28,27 +32,30 @@ public class Board implements IRender {
 	protected LevelLoader _levelLoader;
 	protected Game _game;
 	protected Keyboard _input;
+        protected Keyboard2 _input2;
 	protected Screen _screen;
 	
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
+        protected List<Bomb2> _bombs2 = new ArrayList<>();
 	private List<Message> _messages = new ArrayList<>();
 	
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
-	int a;
+	
         Sound_cdjv levelSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\background.wav");
         Sound_cdjv gameOverSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\GameOverArcade.wav");
         Sound_cdjv winSound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\win.wav");
         
         boolean check = true;
         int count = 0 ;
-	public Board(Game game, Keyboard input, Screen screen) {
+	public Board(Game game, Keyboard input, Keyboard2 input2, Screen screen) {
 		_game = game;
 		_input = input;
+                _input2 = input2;
 		_screen = screen;
 		
 		loadLevel(1); //start in level 1
@@ -61,6 +68,7 @@ public class Board implements IRender {
 		updateEntities();
 		updateCharacters();
 		updateBombs();
+                updateBombs2();
 		updateMessages();
 		detectEndGame();
 		
@@ -83,11 +91,11 @@ public class Board implements IRender {
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1+11; x++) {
 				_entities[(x + y * (_levelLoader.getWidth()-1))].render(screen);
-                                
 			}
 		}
 		
 		renderBombs(screen);
+                renderBombs2(screen);
 		renderCharacter(screen);
 		
 	}
@@ -105,6 +113,7 @@ public class Board implements IRender {
 		_game.pause();
 		_characters.clear();
 		_bombs.clear();
+                _bombs2.clear();
 		_messages.clear();
 		if(check){
                 levelSound.start();
@@ -133,7 +142,7 @@ public class Board implements IRender {
 		if(_time <= 0){
                         gameOverSound.start();
 			endGame();
-                }
+                }if(detectNoBomber()) endGame();
 	}
 	
 	public void endGame() {
@@ -147,7 +156,16 @@ public class Board implements IRender {
 	public boolean detectNoEnemies() {
 		int total = 0;
 		for (int i = 0; i < _characters.size(); i++) {
-			if(_characters.get(i) instanceof Bomber == false)
+			if(_characters.get(i) instanceof Bomber == false&&_characters.get(i) instanceof Bomber2 == false)
+				++total;
+		}
+                count = total;
+		//if(count == 0) winSound.start();
+		return total == 0;
+	}public boolean detectNoBomber() {
+		int total = 0;
+		for (int i = 0; i < _characters.size(); i++) {
+			if(_characters.get(i) instanceof Enemy == false)
 				++total;
 		}
                 count = total;
@@ -189,11 +207,23 @@ public class Board implements IRender {
 	
 	public List<Bomb> getBombs() {
 		return _bombs;
+	}public List<Bomb2> getBombs2() {
+		return _bombs2;
 	}
 	
 	public Bomb getBombAt(double x, double y) {
 		Iterator<Bomb> bs = _bombs.iterator();
 		Bomb b;
+		while(bs.hasNext()) {
+			b = bs.next();
+			if(b.getX() == (int)x && b.getY() == (int)y)
+				return b;
+		}
+		
+		return null;
+	}public Bomb2 getBombAt2(double x, double y) {
+		Iterator<Bomb2> bs = _bombs2.iterator();
+		Bomb2 b;
 		while(bs.hasNext()) {
 			b = bs.next();
 			if(b.getX() == (int)x && b.getY() == (int)y)
@@ -212,6 +242,18 @@ public class Board implements IRender {
 			
 			if(cur instanceof Bomber)
 				return (Bomber) cur;
+		}
+		
+		return null;
+	}public Bomber2 getBomber2() {
+		Iterator<Character> itr = _characters.iterator();
+		
+		Character cur;
+		while(itr.hasNext()) {
+			cur = itr.next();
+			
+			if(cur instanceof Bomber)
+				return (Bomber2) cur;
 		}
 		
 		return null;
@@ -278,6 +320,9 @@ public class Board implements IRender {
 	public void addBomb(Bomb e) {
 		_bombs.add(e);
 	}
+	public void addBomb2(Bomb2 e) {
+		_bombs2.add(e);
+	}
 	
 	public void addMessage(Message e) {
 		_messages.add(e);
@@ -292,6 +337,12 @@ public class Board implements IRender {
 	
 	protected void renderBombs(Screen screen) {
 		Iterator<Bomb> itr = _bombs.iterator();
+		
+		while(itr.hasNext())
+			itr.next().render(screen);
+	}
+        protected void renderBombs2(Screen screen) {
+		Iterator<Bomb2> itr = _bombs2.iterator();
 		
 		while(itr.hasNext())
 			itr.next().render(screen);
@@ -329,6 +380,12 @@ public class Board implements IRender {
 		
 		while(itr.hasNext())
 			itr.next().update();
+	}protected void updateBombs2() {
+		if( _game.isPaused() ) return;
+		Iterator<Bomb2> itr = _bombs2.iterator();
+		
+		while(itr.hasNext())
+			itr.next().update();
 	}
 	
 	protected void updateMessages() {
@@ -355,6 +412,8 @@ public class Board implements IRender {
 
 	public Keyboard getInput() {
 		return _input;
+	}public Keyboard2 getInput2() {
+		return _input2;
 	}
 
 	public LevelLoader getLevel() {

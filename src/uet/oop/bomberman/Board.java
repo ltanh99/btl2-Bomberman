@@ -135,6 +135,7 @@ public class Board implements IRender {
 			if(p.getX() == x && p.getY() == y )
 				return true;
 		}
+                
 		
 		return false;
 	}
@@ -195,6 +196,8 @@ public class Board implements IRender {
 		if( res != null) return res;
 		
 		res = getBombAt(x, y);
+		if( res != null) return res;
+                res = getBombAt2(x, y);
 		if( res != null) return res;
 		
 		res = getCharacterAtExcluding((int)x, (int)y, m);

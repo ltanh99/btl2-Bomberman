@@ -1,7 +1,7 @@
 package uet.oop.bomberman.graphics;
 
 /**
- * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
+ * L?u tr? th�ng tin c�c pixel c?a 1 sprite (h�nh ?nh game)
  */
 public class Sprite {
 	

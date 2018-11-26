@@ -17,6 +17,11 @@ public class Keyboard2 implements KeyListener {
         left = keys[KeyEvent.VK_A];
         right = keys[KeyEvent.VK_D];
         space = keys[KeyEvent.VK_X];
+//        up = keys[KeyEvent.VK_UP];
+//        down = keys[KeyEvent.VK_DOWN];
+//        left = keys[KeyEvent.VK_LEFT];
+//        right = keys[KeyEvent.VK_RIGHT];
+//        space = keys[KeyEvent.VK_SPACE];
     }
 
     @Override

@@ -19,7 +19,7 @@ public class DestroyableTile extends Tile {
 	protected boolean _destroyed = false;
 	protected int _timeToDisapear = 20;
 	protected Sprite _belowSprite = Sprite.grass;
-	Sound_cdjv destroySound=new Sound_cdjv("C:\\Users\\Admin\\Documents\\NetBeansProjects\\bomberman-starter-starter-project-1\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\box_falls.wav");
+	Sound_cdjv destroySound=new Sound_cdjv("C:\\Users\\nguyen ngoc gioi\\Downloads\\btl2-Bomberman-master\\src\\uet\\oop\\bomberman\\Sound_cdjv\\bomberman_music-master\\box_falls.wav");
         
 	public DestroyableTile(int x, int y, Sprite sprite) {
 		super(x, y, sprite);

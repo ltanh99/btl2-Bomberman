@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.character.enemy;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
-import uet.oop.bomberman.entities.character.enemy.ai.AIMedium;
+import uet.oop.bomberman.entities.character.enemy.ai.AIMedium1;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Minvo extends Enemy {
@@ -13,7 +13,7 @@ public class Minvo extends Enemy {
 		
 		_sprite = Sprite.minvo_left1;
 		
-		_ai = new AIMedium(_board.getBomber(), this);
+		_ai = new AIMedium1(_board.getBomber(), this);
 		_direction  = _ai.calculateDirection();
 	}
 	

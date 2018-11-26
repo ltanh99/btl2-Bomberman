@@ -166,7 +166,7 @@ public abstract class Enemy extends Character {
             return false;
         }
          if (e instanceof Bomber2) {
-             converse(e).kill();
+             converse2(e).kill();
             return false;
         }
          
@@ -189,6 +189,10 @@ public abstract class Enemy extends Character {
     public Bomber converse(Entity e)
     {
         return (Bomber)e;
+    }
+    public Bomber2 converse2(Entity e)
+    {
+        return (Bomber2)e;
     }
     @Override
     protected void afterKill() {
